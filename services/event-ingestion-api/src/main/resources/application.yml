@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: event-ingestion-api
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKER}
+    producer:
+      retries: 3
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        delivery.timeout.ms: 5000
+        request.timeout.ms: 2000
+server:
+  port: ${SERVER_PORT:8000}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
